@@ -5,7 +5,8 @@ class Acquire extends Component {
         console.log(this.props.match)
         return (
             <div>
-                <h1>Acquire</h1>
+                <div className='sub-menu'>Acquire</div>
+                <div>Acquire content</div>
             </div>
         );
     }

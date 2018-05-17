@@ -29,7 +29,7 @@ body {
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #000;
-  background-color: #FFF;
+  background-color: #A8C7DC;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -47,4 +47,14 @@ body {
 
 .content{
   box-shadow: none;
+}
+
+.sub-menu{
+  background: #A8C7DC;
+
+}
+
+.tab-content{
+  background: #FFF;
+
 }
