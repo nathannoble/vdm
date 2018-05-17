@@ -14,7 +14,7 @@ class App extends Component {
           <Navbar.Header>
             <Navbar.Toggle />
             <Navbar.Brand>
-              <Link to="/home">Visualized Data Management</Link>
+              Visualized Data Management
             </Navbar.Brand>
           </Navbar.Header>
           <Navbar.Collapse>
