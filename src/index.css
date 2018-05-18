@@ -63,10 +63,23 @@ body {
 
 .sub-menu{
   background: #A8C7DC;
-
 }
 
 .tab-content{
   background: #FFF;
+  padding-top: 5px;
+}
 
+.left-pane{
+  background-color: azure;
+}
+
+.right-pane{
+  background-color: silver;
+}
+
+.footer{
+  background-color: #2AAEE1;
+  font-size: 14px;
+  padding-top: 18px;
 }

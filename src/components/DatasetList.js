@@ -29,8 +29,7 @@ class DatasetList extends Component {
 
 
             <div>
-                <div className='col-lg-2  col-md-3'><div>
-                    <div>Acquired Datasets</div>
+                <div>Acquired Datasets</div>
                     <input type="text" className="search" onChange={this.filterChanged} />
                     <ul>
                         {
@@ -41,9 +40,6 @@ class DatasetList extends Component {
                             })
                         }
                     </ul>
-                </div></div>
-                <div className='col-lg-8 col-md-6'>sdfadsaf</div>
-                <div className='col-lg-2  col-md-3'>sdfadsaf</div>
             </div>
 
         )

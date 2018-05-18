@@ -47,7 +47,10 @@ class App extends Component {
         </Navbar>
 
         <div className="content">
-          
+        </div>
+
+        <div class="navbar navbar-fixed-bottom footer">
+          Copyright 2018 RCG Global Services
         </div>
       </div>
     );
