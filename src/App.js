@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+// eslint-disable-next-line
+import { faHome, faUpload, faSearch, faGavel } from '@fortawesome/fontawesome-free-solid'
 // eslint-disable-next-line
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
@@ -19,16 +22,16 @@ class App extends Component {
           <Navbar.Collapse>
             <Nav>
               <LinkContainer to="/home">
-                <NavItem>Home</NavItem>
+                <NavItem><FontAwesomeIcon icon="home" /> Home</NavItem>
               </LinkContainer>
               <LinkContainer to="/acquire">
-                <NavItem>Acquire</NavItem>
+                <NavItem><FontAwesomeIcon icon="upload" /> Acquire</NavItem>
               </LinkContainer>
               <LinkContainer to="/explore">
-                <NavItem>Explore</NavItem>
+                <NavItem><FontAwesomeIcon icon="search" /> Explore</NavItem>
               </LinkContainer>
               <LinkContainer to="/govern">
-                <NavItem>Govern</NavItem>
+                <NavItem><FontAwesomeIcon icon="gavel" /> Govern</NavItem>
               </LinkContainer>
 
               <NavDropdown eventKey={3} title="Community" id="basic-nav-dropdown">
@@ -48,9 +51,10 @@ class App extends Component {
 
         <div className="content">
         </div>
-
-        <div class="navbar navbar-fixed-bottom footer">
-          Copyright 2018 RCG Global Services
+        
+        <i className="fa fa-camera-retro"></i>
+        <div className="navbar navbar-fixed-bottom footer">
+        Copyright &copy; 2018 RCG Global Services
         </div>
       </div>
     );
