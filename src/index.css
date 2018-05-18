@@ -3,6 +3,11 @@
   src: url(./font/century-gothic/09f6b2ba02572f19a7d7dd2b5f6494ad.ttf);
 }
 
+.container{
+  margin-left: 0;
+  margin-right: 0;
+}
+
 body {
   margin: 0;
   padding: 0;

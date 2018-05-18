@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Dataset from '../components/Dataset'
+// eslint-disable-next-line
+import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix } from 'react-bootstrap';
 
 class DatasetList extends Component {
     constructor(props) {
@@ -8,36 +10,43 @@ class DatasetList extends Component {
             datasets: DATASETS
         };
     }
-    
+
 
     filterChanged = (e) => {
         var updatedList = DATASETS;
-        updatedList = updatedList.filter(function(item){
-        return item.name.toLowerCase().search(
-            e.target.value.toLowerCase()) !== -1;
+        updatedList = updatedList.filter(function (item) {
+            return item.name.toLowerCase().search(
+                e.target.value.toLowerCase()) !== -1;
         });
         this.setState({
             datasets: updatedList
         })
-      }
+    }
 
-    render () {
-    let contacts = this.state.datasets;
-    return (
-        <div className="holder">
-        <input type="text" className="search" onChange={this.filterChanged}/>
-        <div>Datasets</div>
-        <ul>
-            {
-                contacts.map((el) => {
-                return <Dataset key={el.id}
-                                name={el.name}
-                        /> 
-                })
-            }          
-        </ul>
-        </div>     
-    )
+    render() {
+        let contacts = this.state.datasets;
+        return (
+
+
+            <div>
+                <div className='col-lg-2  col-md-3'><div>
+                    <div>Acquired Datasets</div>
+                    <input type="text" className="search" onChange={this.filterChanged} />
+                    <ul>
+                        {
+                            contacts.map((el) => {
+                                return <Dataset key={el.id}
+                                    name={el.name}
+                                />
+                            })
+                        }
+                    </ul>
+                </div></div>
+                <div className='col-lg-8 col-md-6'>sdfadsaf</div>
+                <div className='col-lg-2  col-md-3'>sdfadsaf</div>
+            </div>
+
+        )
     }
 }
 
@@ -46,23 +55,23 @@ export default DatasetList
 
 let DATASETS = [
     {
-      id: 1,
-      name: 'Product'
+        id: 1,
+        name: 'Product'
     },
     {
-      id: 2,
-      name: 'Inventory'
+        id: 2,
+        name: 'Inventory'
     },
     {
-      id: 3,
-      name: 'Receipts'
+        id: 3,
+        name: 'Receipts'
     },
     {
-      id: 4,
-      name: 'Receipt Items'
+        id: 4,
+        name: 'Receipt Items'
     },
     {
-      id: 5,
-      name: 'Invoices'
+        id: 5,
+        name: 'Invoices'
     }
-  ]
+]
