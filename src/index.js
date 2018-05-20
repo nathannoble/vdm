@@ -8,8 +8,8 @@ import Home from './components/Home'
 import Acquire from './components/Acquire'
 import Explore from './components/Explore'
 import Govern from './components/Govern'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/css/bootstrap-theme.css'
+// import './bootstrap/dist/css/bootstrap.css'
+// import './bootstrap/dist/css/bootstrap-theme.css'
 import './index.css';
 
 
