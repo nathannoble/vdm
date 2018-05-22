@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataSourceList from '../components/DataSourceList'
+import ConnectionsList from '../components/ConnectionsList'
 // eslint-disable-next-line
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix, Tabs, Tab } from 'react-bootstrap';
 
@@ -51,7 +51,8 @@ class Acquire extends Component {
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
                                 <div>
                                     <div className='col-lg-2  col-md-3 left-pane'>
-                                        <DataSourceList dataSources={dataSources} />
+                                        {/* <DataSourceList dataSources={dataSources} /> */}
+                                        <ConnectionsList/>
                                     </div>
                                     <div className='col-lg-8 col-md-6'>Canvass</div>
                                     <div className='col-lg-2  col-md-3 right-pane'>Explored Datasets</div>
