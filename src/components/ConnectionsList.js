@@ -31,6 +31,29 @@ class ConnectionsList extends Component {
 					// globals.currentnode = zTreeObj.getNodeByParam('tId', nodeId);
 					// zTreeObj.selectNode(globals.current);
 				}
+            });
+            
+            $('#canvas').droppable({
+				drop : function(event, ui) {
+
+					if (ui.draggable[0].className.indexOf('node_name') == -1)
+						return false;
+
+					//var node = globals.currentnode;
+					// var node = $.extend( true, {}, globals.currentnode );
+
+					var wrapper = $(this).parent();
+					var parentOffset = wrapper.offset();
+					var relX = event.pageX - parentOffset.left + wrapper.scrollLeft();
+					var relY = event.pageY - parentOffset.top + wrapper.scrollTop();
+
+					// var nodeKey = ((node.parent) ? node.parent.replace(/\\/g, "/") : "") + node.name + "|" + node.data.config.host + "|" + node.data.config.type;
+
+					// console.log(node);
+					// console.log(nodeKey);
+
+					// addNode(node, nodeKey, relX, relY);
+				}
 			});
          });
     }

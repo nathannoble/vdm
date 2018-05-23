@@ -54,7 +54,7 @@ class Acquire extends Component {
                                     <div className='col-lg-2  col-md-3 left-pane'>
                                         <ConnectionsList dataSources={dataSources} />
                                     </div>
-                                    <div className='col-lg-8 col-md-6'>Canvass</div>
+                                    <div id='canvas' className='canvas col-lg-8 col-md-6'>Canvas</div>
                                     <div className='col-lg-2  col-md-3 right-pane'>Explored Datasets</div>
                                 </div>
                             </Tab>
