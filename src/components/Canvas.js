@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import $ from 'jquery';
+require('jqueryui');
 require('jsplumb');
+
 const jsPlumb = window.jsPlumb;
 
 class Canvas extends Component {
@@ -13,27 +15,21 @@ class Canvas extends Component {
     //           jsPlumb.repaint(ui.helper);
     //       }
     //   });
-
     var common = {
-        isSource:true,
-        isTarget:true,
-        connector: ["Straight"],
-        endpoint:"Rectangle"
-    }; 
-
+      isSource:true,
+      isTarget:true,
+      connector:"Straight",
+      endpoint:"Rectangle",
+      paintStyle:{ fill:"white", outlineStroke:"blue", strokeWidth:3 },
+      hoverPaintStyle:{ outlineStroke:"lightblue" },
+      connectorStyle:{ outlineStroke:"green", strokeWidth:1 },
+      connectorHoverStyle:{ strokeWidth:2 }
+    };
+    
     jsPlumb.bind('ready', function() {
       // jsPlumb.setContainer("canvas");
       
-      var common = {
-        isSource:true,
-        isTarget:true,
-        connector:"Straight",
-        endpoint:"Rectangle",
-        paintStyle:{ fill:"white", outlineStroke:"blue", strokeWidth:3 },
-        hoverPaintStyle:{ outlineStroke:"lightblue" },
-        connectorStyle:{ outlineStroke:"green", strokeWidth:1 },
-        connectorHoverStyle:{ strokeWidth:2 }
-      };
+      
       
       jsPlumb.addEndpoint("item_left", { 
         anchor:"Right"
@@ -48,7 +44,7 @@ class Canvas extends Component {
       }, common);
 
       jsPlumb.draggable("item_left");
-      jsPlumb.draggable("item_right");
+      jsPlumb.draggable("item_right", { grid:[10,10] });
     });
   }
 
