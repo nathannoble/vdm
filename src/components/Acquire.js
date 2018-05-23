@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ConnectionsList from '../components/ConnectionsList'
+import Canvas from '../components/Canvas'
 // eslint-disable-next-line
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix, Tabs, Tab } from 'react-bootstrap';
 
@@ -54,7 +55,7 @@ class Acquire extends Component {
                                     <div className='col-lg-2  col-md-3 left-pane'>
                                         <ConnectionsList dataSources={dataSources} />
                                     </div>
-                                    <div id='canvas' className='canvas col-lg-8 col-md-6'>Canvas</div>
+                                    <div className='canvas col-lg-8 col-md-6'><Canvas/></div>
                                     <div className='col-lg-2  col-md-3 right-pane'>Explored Datasets</div>
                                 </div>
                             </Tab>

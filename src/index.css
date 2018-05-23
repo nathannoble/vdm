@@ -84,3 +84,9 @@ body {
   font-size: 14px;
   padding-top: 18px;
 }
+
+.canvas-item {
+  position: absolute;
+  height:80px; width: 80px;
+  border: 1px solid blue;
+}
