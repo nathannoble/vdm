@@ -24,7 +24,7 @@ class Acquire extends Component {
             (result) => {
               this.setState({
                 isLoaded: true,
-                dataSources: result.dataSources
+                dataSources: JSON.parse(result)
               });
             },
             // Note: it's important to handle errors here
@@ -70,24 +70,6 @@ class Acquire extends Component {
         
     }
 
-    // render() {
-    //     const { error, isLoaded, dataSources } = this.state;
-    //     if (error) {
-    //       return <div>Error: {error.message}</div>;
-    //     } else if (!isLoaded) {
-    //       return <div>Loading...</div>;
-    //     } else {
-    //       return (
-    //         <ul>
-    //           {dataSources.map(item => (
-    //             <li key={item.name}>
-    //               {item.name} {item.price}
-    //             </li>
-    //           ))}
-    //         </ul>
-    //       );
-    //     }
-    //   }
 }
 
 export default Acquire

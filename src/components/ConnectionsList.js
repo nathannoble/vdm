@@ -60,7 +60,9 @@ class ConnectionsList extends Component {
 
     render (){
         return(
-            <ul id="treeDemo" className="ztree"></ul>
+            <div className='connections-panel'>
+                <ul id="treeDemo" className="ztree"></ul>
+            </div>
         );
     }
 }

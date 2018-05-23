@@ -72,7 +72,7 @@ body {
 }
 
 .left-pane{
-  background-color: azure;
+  background-color: white;
 }
 
 .right-pane{
@@ -83,6 +83,15 @@ body {
   background-color: #2AAEE1;
   font-size: 14px;
   padding-top: 18px;
+}
+
+.connections-panel{
+  background-color: azure;
+  height:500px;
+  overflow:auto;
+  /* overflow-y: auto;
+  overflow-x: hidden; */
+  /* width: 200px; */
 }
 
 #canvas {
