@@ -15,7 +15,8 @@ class Acquire extends Component {
       }
 
     componentDidMount() {
-        fetch("http://localhost:4000/api/datasources")
+        fetch("http://localhost:4000/api/datasources")  
+        // fetch("http://52.45.154.215:9290/getConnections/name")
           .then(res => res.json())
           .then(
               
@@ -51,8 +52,7 @@ class Acquire extends Component {
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
                                 <div>
                                     <div className='col-lg-2  col-md-3 left-pane'>
-                                        {/* <DataSourceList dataSources={dataSources} /> */}
-                                        <ConnectionsList/>
+                                        <ConnectionsList dataSources={dataSources} />
                                     </div>
                                     <div className='col-lg-8 col-md-6'>Canvass</div>
                                     <div className='col-lg-2  col-md-3 right-pane'>Explored Datasets</div>
