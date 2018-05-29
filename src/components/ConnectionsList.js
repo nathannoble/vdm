@@ -13,10 +13,16 @@ const setting = {}
 
 class ConnectionsList extends Component {
 
+	constructor(props){
+		super(props);
+	}
+
     componentDidMount(){
-        let dataSources = this.props.dataSources;
+		let dataSources = this.props.dataSources;
+		var zTreeObj = this.props.zTreeObj;
+		var currentNode = this.props.currentNode;
         $(document).ready(function(){
-            var zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, dataSources);
+            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, dataSources);
             zTreeObj.expandAll(false);
 
             $(".node_name").draggable({
@@ -28,8 +34,8 @@ class ConnectionsList extends Component {
 				start : function(event, ui) {
 					var nodeId = $(event)[0].currentTarget.id;
 					nodeId = nodeId.substring(0, nodeId.length - 5);
-					// globals.currentnode = zTreeObj.getNodeByParam('tId', nodeId);
-					// zTreeObj.selectNode(globals.current);
+					currentNode = zTreeObj.getNodeByParam('tId', nodeId);
+					zTreeObj.selectNode(currentNode);
 				}
             });
             
@@ -39,18 +45,17 @@ class ConnectionsList extends Component {
 					if (ui.draggable[0].className.indexOf('node_name') == -1)
 						return false;
 
-					//var node = globals.currentnode;
-					// var node = $.extend( true, {}, globals.currentnode );
+					var node = $.extend( true, {}, currentNode );
 
 					var wrapper = $(this).parent();
 					var parentOffset = wrapper.offset();
 					var relX = event.pageX - parentOffset.left + wrapper.scrollLeft();
 					var relY = event.pageY - parentOffset.top + wrapper.scrollTop();
 
-					// var nodeKey = ((node.parent) ? node.parent.replace(/\\/g, "/") : "") + node.name + "|" + node.data.config.host + "|" + node.data.config.type;
+					var nodeKey = ((node.parent) ? node.parent.replace(/\\/g, "/") : "") + node.name + "|" + node.data.config.host + "|" + node.data.config.type;
 
-					// console.log(node);
-					// console.log(nodeKey);
+					console.log(node);
+					console.log(nodeKey);
 
 					// addNode(node, nodeKey, relX, relY);
 				}

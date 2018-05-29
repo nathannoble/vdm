@@ -11,13 +11,17 @@ class Acquire extends Component {
         this.state = {
           error: null,
           isLoaded: false,
-          dataSources: []
+          dataSources: [],
+          zTreeObj: null,
+          currentNode: null
         };
       }
 
     componentDidMount() {
+        // fetch('http://localhost:4000/api/getconnections')
         fetch("http://localhost:4000/api/datasources")  
         // fetch("http://52.45.154.215:9290/getConnections/name")
+        // fetch('http://52.45.154.215:9290/getNewConnections/name')
           .then(res => res.json())
           .then(
               
@@ -40,7 +44,7 @@ class Acquire extends Component {
       }
 
     render() {
-        const { error, isLoaded, dataSources } = this.state;
+        const { error, isLoaded, dataSources, zTreeObj, currentNode } = this.state;
         if (error) {
           return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -52,11 +56,11 @@ class Acquire extends Component {
                         <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
                                 <div>
-                                    <div className='col-lg-2  col-md-3 left-pane'>
-                                        <ConnectionsList dataSources={dataSources} />
+                                    <div className='col-lg-3  col-md-3 left-pane'>
+                                        <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj} currentNode = {currentNode}/>
                                     </div>
-                                    <div className='canvas col-lg-8 col-md-6'><Canvas/></div>
-                                    <div className='col-lg-2  col-md-3 right-pane'>Explored Datasets</div>
+                                    <div className='canvas col-lg-6 col-md-6'><Canvas/></div>
+                                    <div className='col-lg-3  col-md-3 right-pane'>Explored Datasets</div>
                                 </div>
                             </Tab>
                             <Tab eventKey={2} title="Confluent" disabled>
