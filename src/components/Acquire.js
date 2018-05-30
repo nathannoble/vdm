@@ -20,11 +20,11 @@ class Acquire extends Component {
           dataSources: [],
           zTreeObj: null,
           currentNode: null,
-          canvas: null
+          plumb: null
         };
       }
 
-    addNode(node, nodeKey, relX, relY){
+    addNode(node, nodeKey, relX, relY, plumb){
         function guid() {
             function s4() {
               return Math.floor((1 + Math.random()) * 0x10000)
@@ -51,14 +51,14 @@ class Acquire extends Component {
         d.style.left = relX + "px";
         d.style.top = relY + "px";
 
-        // canvas.getContainer().appendChild(d);
+        plumb.getContainer().appendChild(d);
         
     }
 
     componentDidMount() {
 
         // Create an instance of jsplumb for this canvas
-        let canvas = jsPlumb.getInstance({
+        let plumb = jsPlumb.getInstance({
             PaintStyle:{ 
               strokeWidth:6, 
               stroke:"#567567", 
@@ -71,19 +71,19 @@ class Acquire extends Component {
             Anchor : [ 0.5, 0.5, 1, 1 ]
           });
 
-        canvas.registerConnectionType("basic", {
+          plumb.registerConnectionType("basic", {
             anchor : "Continuous",
             connector : "StateMachine"
         });
 
-        this.setState({canvas: canvas});
+        this.setState({plumb: plumb});
 
           
 
         // fetch('http://localhost:4000/api/getconnections')
-        fetch("http://localhost:4000/api/datasources")  
+        // fetch("http://localhost:4000/api/datasources")  
         // fetch("http://52.45.154.215:9290/getConnections/name")
-        // fetch('http://52.45.154.215:9290/getNewConnections/name')
+        fetch('http://52.45.154.215:9290/getNewConnections/name')
           .then(res => res.json())
           .then(
               
@@ -108,7 +108,7 @@ class Acquire extends Component {
       
 
     render() {
-        const { error, isLoaded, dataSources, zTreeObj, currentNode, canvasNodes, canvas } = this.state;
+        const { error, isLoaded, dataSources, zTreeObj, currentNode, canvasNodes, plumb } = this.state;
         const addNode = this.addNode;
         if (error) {
           return <div>Error: {error.message}</div>;
@@ -122,9 +122,10 @@ class Acquire extends Component {
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
                                 <div>
                                     <div className='col-lg-3  col-md-3 left-pane'>
-                                        <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj} currentNode = {currentNode} addNode={addNode}/>
+                                        <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj} 
+                                        currentNode = {currentNode} addNode={addNode}  plumb={plumb}/>
                                     </div>
-                                    <div className='canvas col-lg-6 col-md-6'><Canvas nodes={canvasNodes} canvas={canvas}/></div>
+                                    <div className='canvas col-lg-6 col-md-6'><Canvas nodes={canvasNodes} plumb={plumb}/></div>
                                     <div className='col-lg-3  col-md-3 right-pane'>Explored Datasets</div>
                                 </div>
                             </Tab>

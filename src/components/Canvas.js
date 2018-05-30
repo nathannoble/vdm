@@ -14,11 +14,13 @@ class Canvas extends Component {
 
   componentDidMount(){
     let nodes = this.props.nodes;
-    let canvas = this.props.canvas;
+    let plumb = this.props.plumb;
+    plumb.setContainer('canvas');
         
-    canvas.bind('ready', function() {     
+    // plumb.bind('ready', function() {     
       
-    });
+    // });
+    
   }
 
     render () {
