@@ -4,6 +4,12 @@ import Canvas from '../components/Canvas'
 // eslint-disable-next-line
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix, Tabs, Tab } from 'react-bootstrap';
 
+import $ from 'jquery';
+require('jqueryui');
+require('jsplumb');
+
+const jsPlumb = window.jsPlumb;
+
 class Acquire extends Component {
 
     constructor(props) {
@@ -13,11 +19,67 @@ class Acquire extends Component {
           isLoaded: false,
           dataSources: [],
           zTreeObj: null,
-          currentNode: null
+          currentNode: null,
+          canvas: null
         };
       }
 
+    addNode(node, nodeKey, relX, relY){
+        function guid() {
+            function s4() {
+              return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+          }
+
+        console.log('Nodekey: ' + nodeKey);
+        var d = document.createElement("div");
+		var id = guid();
+		d.className = "w";
+		d.id = id;
+		d.style.height = '80px';
+		d.style.width = '225px';
+        d.style.padding = '5px';
+        
+        var _name_ = node.name;
+		if (_name_.length > 17){_name_ = _name_.substring(0, 17) + '...';}
+            
+        d.innerHTML = '<div>' + _name_ + '</div>'    
+
+        d.style.left = relX + "px";
+        d.style.top = relY + "px";
+
+        // canvas.getContainer().appendChild(d);
+        
+    }
+
     componentDidMount() {
+
+        // Create an instance of jsplumb for this canvas
+        let canvas = jsPlumb.getInstance({
+            PaintStyle:{ 
+              strokeWidth:6, 
+              stroke:"#567567", 
+              outlineStroke:"black", 
+              outlineWidth:1 
+            },
+            Connector:[ "Bezier", { curviness: 30 } ],
+            Endpoint:[ "Dot", { radius:5 } ],
+            EndpointStyle : { fill: "#567567"  },
+            Anchor : [ 0.5, 0.5, 1, 1 ]
+          });
+
+        canvas.registerConnectionType("basic", {
+            anchor : "Continuous",
+            connector : "StateMachine"
+        });
+
+        this.setState({canvas: canvas});
+
+          
+
         // fetch('http://localhost:4000/api/getconnections')
         fetch("http://localhost:4000/api/datasources")  
         // fetch("http://52.45.154.215:9290/getConnections/name")
@@ -43,8 +105,11 @@ class Acquire extends Component {
           )
       }
 
+      
+
     render() {
-        const { error, isLoaded, dataSources, zTreeObj, currentNode } = this.state;
+        const { error, isLoaded, dataSources, zTreeObj, currentNode, canvasNodes, canvas } = this.state;
+        const addNode = this.addNode;
         if (error) {
           return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -57,9 +122,9 @@ class Acquire extends Component {
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
                                 <div>
                                     <div className='col-lg-3  col-md-3 left-pane'>
-                                        <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj} currentNode = {currentNode}/>
+                                        <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj} currentNode = {currentNode} addNode={addNode}/>
                                     </div>
-                                    <div className='canvas col-lg-6 col-md-6'><Canvas/></div>
+                                    <div className='canvas col-lg-6 col-md-6'><Canvas nodes={canvasNodes} canvas={canvas}/></div>
                                     <div className='col-lg-3  col-md-3 right-pane'>Explored Datasets</div>
                                 </div>
                             </Tab>

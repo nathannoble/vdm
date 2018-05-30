@@ -21,6 +21,7 @@ class ConnectionsList extends Component {
 		let dataSources = this.props.dataSources;
 		var zTreeObj = this.props.zTreeObj;
 		var currentNode = this.props.currentNode;
+		var addNode = this.props.addNode;
         $(document).ready(function(){
             zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, dataSources);
             zTreeObj.expandAll(false);
@@ -57,7 +58,7 @@ class ConnectionsList extends Component {
 					console.log(node);
 					console.log(nodeKey);
 
-					// addNode(node, nodeKey, relX, relY);
+					addNode(node, nodeKey, relX, relY);
 				}
 			});
          });
