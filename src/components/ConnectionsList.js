@@ -18,6 +18,7 @@ class ConnectionsList extends Component {
 		var zTreeObj = this.props.zTreeObj;
 		var currentNode = this.props.currentNode;
 		var addNode = this.props.addNode;
+		var nodeClicked = this.props.nodeClicked;
 		var plumb = this.props.plumb;
         $(document).ready(function(){
             zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, dataSources);
@@ -55,7 +56,7 @@ class ConnectionsList extends Component {
 					console.log(node);
 					console.log(nodeKey);
 
-					addNode(node, nodeKey, relX, relY, plumb);
+					addNode(node, nodeKey, relX, relY, plumb, nodeClicked);
 				}
 			});
          });

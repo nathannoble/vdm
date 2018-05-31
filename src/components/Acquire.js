@@ -27,12 +27,17 @@ class Acquire extends Component {
         };
 
         this.addNode = this.addNode.bind(this);
+        this.nodeClicked = this.nodeClicked.bind(this);
     }
     
+    nodeClicked(nodeId){
+        var clickedNode = this.state.nodes.find(n => n.id === nodeId);
+        console.log(clickedNode);
+    }
 
 
     // Add the node to the node list and to the canvas
-    addNode(node, nodeKey, relX, relY, plumb) {
+    addNode(node, nodeKey, relX, relY, plumb, nodeClicked) {
 
         var initNode = function (el) {
 
@@ -89,7 +94,7 @@ class Acquire extends Component {
 
         $(".w").on('click', function (e) {
             console.log('clicked ' + e.currentTarget.id)
-
+            nodeClicked(e.currentTarget.id);
             e.preventDefault();
         });
 
@@ -167,6 +172,7 @@ class Acquire extends Component {
     render() {
         const { error, isLoaded, dataSources, zTreeObj, currentNode, plumb } = this.state;
         const addNode = this.addNode;
+        const nodeClicked = this.nodeClicked;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -181,7 +187,9 @@ class Acquire extends Component {
                                 <div className="main">
                                     <div className="col-1">
                                         <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj}
-                                            currentNode={currentNode} addNode={addNode} plumb={plumb} />
+                                            currentNode={currentNode} addNode={addNode} plumb={plumb} 
+                                            nodeClicked={nodeClicked}
+                                            />
                                     </div>
                                     <div className="col-2">
                                         <Canvas plumb={plumb} />
