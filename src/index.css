@@ -101,11 +101,15 @@ body {
 .main {
   display: flex;
 }
-.col-1, .col-3 {
+.col-1{
   width: 300px;
 }
 .col-2 {
   flex-grow: 1;
+}
+.col-3 {
+  width: 300px;
+  padding: 5px;
 }
 
 

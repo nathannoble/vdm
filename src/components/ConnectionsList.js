@@ -13,38 +13,38 @@ const setting = {}
 
 class ConnectionsList extends Component {
 
-    componentDidMount(){
+	componentDidMount() {
 		let dataSources = this.props.dataSources;
 		var zTreeObj = this.props.zTreeObj;
 		var currentNode = this.props.currentNode;
 		var addNode = this.props.addNode;
 		var nodeClicked = this.props.nodeClicked;
 		var plumb = this.props.plumb;
-        $(document).ready(function(){
-            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, dataSources);
-            zTreeObj.expandAll(false);
+		$(document).ready(function () {
+			zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, dataSources);
+			zTreeObj.expandAll(false);
 
-            $(".node_name").draggable({
-				helper : 'clone',
-				drag : function(event, ui) {
+			$(".node_name").draggable({
+				helper: 'clone',
+				drag: function (event, ui) {
 				},
-				stop : function(event, ui) {
+				stop: function (event, ui) {
 				},
-				start : function(event, ui) {
+				start: function (event, ui) {
 					var nodeId = $(event)[0].currentTarget.id;
 					nodeId = nodeId.substring(0, nodeId.length - 5);
 					currentNode = zTreeObj.getNodeByParam('tId', nodeId);
 					zTreeObj.selectNode(currentNode);
 				}
-            });
-            
-            $('#canvas').droppable({
-				drop : function(event, ui) {
+			});
+
+			$('#canvas').droppable({
+				drop: function (event, ui) {
 
 					if (ui.draggable[0].className.indexOf('node_name') === -1)
 						return false;
 
-					var node = $.extend( true, {}, currentNode );
+					var node = $.extend(true, {}, currentNode);
 
 					var wrapper = $(this).parent();
 					var parentOffset = wrapper.offset();
@@ -59,16 +59,16 @@ class ConnectionsList extends Component {
 					addNode(node, nodeKey, relX, relY, plumb, nodeClicked);
 				}
 			});
-         });
-    }
+		});
+	}
 
-    render (){
-        return(
-            <div className='connections-panel'>
-                <ul id="treeDemo" className="ztree"></ul>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div className='connections-panel'>
+				<ul id="treeDemo" className="ztree"></ul>
+			</div>
+		);
+	}
 }
 
 export default ConnectionsList;

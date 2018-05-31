@@ -7,26 +7,22 @@ const jsPlumb = window.jsPlumb;
 
 class Canvas extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     let plumb = this.props.plumb;
     plumb.setContainer('canvas');
 
-    
-        
     jsPlumb.ready(function () {
-           console.log('Plumb ready!')
+      console.log('Plumb ready!')
+    });
 
-           
-      });
-    
   }
 
-    render () {
-      return (
-        <div id='canvas'>
-        </div>     
-      )
-    }
+  render() {
+    return (
+      <div id='canvas'>
+      </div>
+    )
   }
+}
 
-  export default Canvas
+export default Canvas

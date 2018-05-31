@@ -23,15 +23,17 @@ class Acquire extends Component {
             zTreeObj: null,
             currentNode: null,
             plumb: null,
-            nodes:[],
+            nodes: [],
         };
 
         this.addNode = this.addNode.bind(this);
         this.nodeClicked = this.nodeClicked.bind(this);
     }
-    
-    nodeClicked(nodeId){
+
+    // Update the current selected node
+    nodeClicked(nodeId) {
         var clickedNode = this.state.nodes.find(n => n.id === nodeId);
+        this.setState({ currentNode: clickedNode });
         console.log(clickedNode);
     }
 
@@ -90,7 +92,7 @@ class Acquire extends Component {
         // Add to the node list
         this.setState({
             nodes: [...this.state.nodes, node]
-          })
+        })
 
         $(".w").on('click', function (e) {
             console.log('clicked ' + e.currentTarget.id)
@@ -187,15 +189,15 @@ class Acquire extends Component {
                                 <div className="main">
                                     <div className="col-1">
                                         <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj}
-                                            currentNode={currentNode} addNode={addNode} plumb={plumb} 
+                                            currentNode={currentNode} addNode={addNode} plumb={plumb}
                                             nodeClicked={nodeClicked}
-                                            />
+                                        />
                                     </div>
                                     <div className="col-2">
                                         <Canvas plumb={plumb} />
                                     </div>
                                     <div className="col-3">
-                                        <PropertyPage />
+                                        <PropertyPage node={currentNode} />
                                     </div>
                                 </div>
 
