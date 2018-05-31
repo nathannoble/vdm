@@ -13,10 +13,6 @@ const setting = {}
 
 class ConnectionsList extends Component {
 
-	constructor(props){
-		super(props);
-	}
-
     componentDidMount(){
 		let dataSources = this.props.dataSources;
 		var zTreeObj = this.props.zTreeObj;
@@ -44,7 +40,7 @@ class ConnectionsList extends Component {
             $('#canvas').droppable({
 				drop : function(event, ui) {
 
-					if (ui.draggable[0].className.indexOf('node_name') == -1)
+					if (ui.draggable[0].className.indexOf('node_name') === -1)
 						return false;
 
 					var node = $.extend( true, {}, currentNode );
