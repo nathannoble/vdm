@@ -60,6 +60,8 @@ class Acquire extends Component {
         };
     
         var newNode = function(x, y) {
+            var vOffset = 100;
+            var hOffset = 300;
             var d = document.createElement("div");
             var id = jsPlumbUtil.uuid();
             var nodeName = node.name;
@@ -67,8 +69,8 @@ class Acquire extends Component {
             d.className = "w";
             d.id = id;
             d.innerHTML = nodeName + "<div class=\"ep\"></div>";
-            d.style.left = x + "px";
-            d.style.top = y + "px";
+            d.style.left = (x + hOffset) + "px";
+            d.style.top = (y + vOffset) + "px";
             plumb.getContainer().appendChild(d);
             initNode(d);
             return d;
@@ -181,14 +183,18 @@ class Acquire extends Component {
                     <div className='sub-menu'>
                         <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
-                                <div>
-                                    <div className='col-lg-3  col-md-3 left-pane'>
-                                        <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj} 
-                                        currentNode = {currentNode} addNode={addNode}  plumb={plumb}/>
-                                    </div>
-                                    <div className='canvas'><Canvas nodes={canvasNodes} plumb={plumb}/></div>
-                                    <div className='col-lg-3  col-md-3 right-pane'>Explored Datasets</div>
+
+                            <div className="main">
+                                <div className="col-1">
+                                <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj} 
+                                        currentNode = {currentNode} addNode={addNode}  plumb={plumb}/>  
                                 </div>
+                                <div className="col-2">
+                                <Canvas nodes={canvasNodes} plumb={plumb}/>
+                                </div>
+                                <div className="col-3">Explored Datasets</div>
+                            </div>
+
                             </Tab>
                             <Tab eventKey={2} title="Confluent" disabled>
                                 Rules Parser content

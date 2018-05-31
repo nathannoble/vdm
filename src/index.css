@@ -87,24 +87,27 @@ body {
 
 .connections-panel{
   background-color: azure;
-  height:500px;
+  height: calc(100vh - 160px);
   overflow:auto;
-  /* overflow-y: auto;
-  overflow-x: hidden; */
-  /* width: 200px; */
 }
 
 #canvas {
   padding: 20px;
-  width:80%; height: 400px;
+  height: calc(100vh - 160px);
+  /* background: tomato; */
   border: 1px solid gray;
 }
 
-.canvas-item {
-  position: absolute;
-  height:80px; width: 80px;
-  border: 1px solid blue;
+.main {
+  display: flex;
 }
+.col-1, .col-3 {
+  width: 300px;
+}
+.col-2 {
+  flex-grow: 1;
+}
+
 
 /* Canvas Styles */
 .w {
