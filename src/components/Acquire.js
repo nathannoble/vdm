@@ -46,6 +46,17 @@ class Acquire extends Component {
             // initialise draggable elements.
             plumb.draggable(el);
 
+            $(el).draggable({
+                stop: function( event, ui ) {
+                    console.log(ui.helper[0].id)
+                    console.log(ui.position)
+                    // Update the node position
+                    var node = window.nodes.find(node => node.id === ui.helper[0].id)
+                    node.relX = ui.position.left - 300
+                    node.relY = ui.position.top - 100
+                }
+              });
+
             plumb.makeSource(el, {
                 filter: ".ep",
                 anchor: "Continuous",
