@@ -47,6 +47,7 @@ class Acquire extends Component {
             plumb.draggable(el);
 
             $(el).draggable({
+                cancel: "div.ep",
                 stop: function( event, ui ) {
                     console.log(ui.helper[0].id)
                     console.log(ui.position)
