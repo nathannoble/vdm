@@ -23,7 +23,7 @@ class Acquire extends Component {
             zTreeObj: null,
             currentNode: null,
             plumb: null,
-            nodes: [],
+            nodes: window.nodes
         };
 
         this.addNode = this.addNode.bind(this);
@@ -89,10 +89,18 @@ class Acquire extends Component {
 
         newNode(relX, relY);
 
+        // Fluffup this node with metadata
+        node.nodeKey = nodeKey;
+        node.relX = relX;
+        node.relY = relY;
+
         // Add to the node list
         this.setState({
             nodes: [...this.state.nodes, node]
         })
+
+        // Update global var
+        window.nodes = this.state.nodes;
 
         $(".w").on('click', function (e) {
             console.log('clicked ' + e.currentTarget.id)
@@ -167,6 +175,7 @@ class Acquire extends Component {
                 });
             }
             )
+
     }
 
 
@@ -194,7 +203,7 @@ class Acquire extends Component {
                                         />
                                     </div>
                                     <div className="col-2">
-                                        <Canvas plumb={plumb} />
+                                        <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked}/>
                                     </div>
                                     <div className="col-3">
                                         <PropertyPage node={currentNode} />

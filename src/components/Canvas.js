@@ -9,10 +9,18 @@ class Canvas extends Component {
 
   componentDidMount() {
     let plumb = this.props.plumb;
+    let addNode = this.props.addNode;
+		let nodeClicked = this.props.nodeClicked;
     plumb.setContainer('canvas');
 
     jsPlumb.ready(function () {
       console.log('Plumb ready!')
+
+      // Restore nodes
+      window.nodes.forEach(node => {
+        addNode(node, node.nodeKey, node.relX, node.relY, plumb, nodeClicked)
+      });
+      
     });
 
   }
