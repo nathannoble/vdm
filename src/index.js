@@ -12,14 +12,16 @@ import Govern from './components/Govern'
 // import './bootstrap/dist/css/bootstrap-theme.css'
 import './index.css';
 
+window.nodes = [];
 
 ReactDOM.render(
+
     <BrowserRouter>
     <div>
         <App />
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
-        <Route path="/acquire" component={Acquire} />
+        <Route path="/acquire" render={(props) => (<Acquire {...props} state={window.nodes} />)}/>
         <Route path="/explore" component={Explore} />
         <Route path="/govern" component={Govern} />
       </div>

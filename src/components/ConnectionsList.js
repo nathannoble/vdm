@@ -15,11 +15,11 @@ class ConnectionsList extends Component {
 
 	componentDidMount() {
 		let dataSources = this.props.dataSources;
-		var zTreeObj = this.props.zTreeObj;
-		var currentNode = this.props.currentNode;
-		var addNode = this.props.addNode;
-		var nodeClicked = this.props.nodeClicked;
-		var plumb = this.props.plumb;
+		let zTreeObj = this.props.zTreeObj;
+		let currentNode = this.props.currentNode;
+		let addNode = this.props.addNode;
+		let nodeClicked = this.props.nodeClicked;
+		let plumb = this.props.plumb;
 		$(document).ready(function () {
 			zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, dataSources);
 			zTreeObj.expandAll(false);
