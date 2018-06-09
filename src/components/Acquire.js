@@ -44,8 +44,11 @@ class Acquire extends Component {
         var initNode = function (el) {
 
             // initialise draggable elements.
-            plumb.draggable(el);
-
+            plumb.draggable(el, {
+                containment:true,
+                grid:[50,50]
+             });
+     
             $(el).draggable({
                 cancel: "div.ep",
                 stop: function( event, ui ) {
