@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ConnectionsList from '../components/ConnectionsList'
 import Canvas from '../components/Canvas'
 import PropertyPage from '../components/PropertyPage'
+import "./Acquire.css";
 // eslint-disable-next-line
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix, Tabs, Tab } from 'react-bootstrap';
 
@@ -45,13 +46,13 @@ class Acquire extends Component {
 
             // initialise draggable elements.
             plumb.draggable(el, {
-                containment:true,
-                grid:[50,50]
-             });
-     
+                containment: true,
+                grid: [50, 50]
+            });
+
             $(el).draggable({
                 cancel: "div.ep",
-                stop: function( event, ui ) {
+                stop: function (event, ui) {
                     console.log(ui.helper[0].id)
                     console.log(ui.position)
                     // Update the node position
@@ -59,7 +60,7 @@ class Acquire extends Component {
                     node.relX = ui.position.left - 300
                     node.relY = ui.position.top - 100
                 }
-              });
+            });
 
             plumb.makeSource(el, {
                 filter: ".ep",
@@ -174,21 +175,21 @@ class Acquire extends Component {
             .then(res => res.json())
             .then(
 
-            (result) => {
-                this.setState({
-                    isLoaded: true,
-                    dataSources: JSON.parse(result)
-                });
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        dataSources: JSON.parse(result)
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
             )
 
     }
@@ -218,7 +219,13 @@ class Acquire extends Component {
                                         />
                                     </div>
                                     <div className="col-2">
-                                        <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked}/>
+                                        <div className="actions-box">
+                                            <Button>New</Button>
+                                            <Button>Open</Button>
+                                            <Button>Close</Button>
+                                            <Button>Save</Button>
+                                        </div>
+                                        <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} />
                                     </div>
                                     <div className="col-3">
                                         <PropertyPage node={currentNode} />
