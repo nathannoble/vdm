@@ -1,10 +1,12 @@
-import { combineReducers } from 'redux';
-import ContactsReducer from './reducer_contacts'
-import ActiveContactReducer from './reducer_active_contact'
+import { combineReducers } from 'redux'
+import datasources from './datasources'
+import flows from './flows'
+import todos from './todos'
+import visibilityFilter from './visibilityFilter'
 
-const rootReducer = combineReducers({
-  contacts: ContactsReducer,
-  activeContact: ActiveContactReducer
-});
-
-export default rootReducer;
+export default combineReducers({
+    datasources,
+    flows,
+    todos,
+    visibilityFilter
+})

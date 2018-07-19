@@ -5,8 +5,9 @@ import PropertyPage from '../components/PropertyPage'
 import "./Acquire.css";
 // eslint-disable-next-line
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix, Tabs, Tab } from 'react-bootstrap';
-
 import $ from 'jquery';
+import { connect } from 'react-redux'
+
 require('jqueryui');
 require('jsplumb');
 
@@ -246,4 +247,15 @@ class Acquire extends Component {
 
 }
 
-export default Acquire
+const mapStateToProps = state => ({
+    todos: state.datasources
+})
+
+const mapDispatchToProps = dispatch => ({
+    // placeDatasource: id => dispatch(placeDatasource(id))
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Acquire)

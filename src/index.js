@@ -7,18 +7,18 @@ import Home from './components/Home'
 import Acquire from './components/Acquire'
 import Explore from './components/Explore'
 import Govern from './components/Govern'
-// import './bootstrap/dist/css/bootstrap.css'
-// import './bootstrap/dist/css/bootstrap-theme.css'
 import './index.css';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reducers from './reducers';
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducer from './reducers'
+
+const store = createStore(rootReducer)
 
 window.nodes = [];
 
 ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider  store={store}>
         <BrowserRouter>
             <div>
                 <App />
