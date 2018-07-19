@@ -7,6 +7,7 @@ import "./Acquire.css";
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix, Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
 import { connect } from 'react-redux'
+import { addNode } from "../actions/acquire";
 
 require('jqueryui');
 require('jsplumb');
@@ -25,7 +26,7 @@ class Acquire extends Component {
             zTreeObj: null,
             currentNode: null,
             plumb: null,
-            nodes: window.nodes
+            nodes:props.nodes
         };
 
         this.addNode = this.addNode.bind(this);
@@ -41,8 +42,8 @@ class Acquire extends Component {
 
 
     // Add the node to the node list and to the canvas
-    addNode(node, nodeKey, relX, relY, plumb, nodeClicked) {
-
+    addNode(node, nodeKey, relX, relY, plumb, nodeClicked, isNewNode) {
+        
         var initNode = function (el) {
 
             // initialise draggable elements.
@@ -104,20 +105,21 @@ class Acquire extends Component {
 
         console.log('Nodekey: ' + nodeKey);
 
-        newNode(relX, relY);
+        var d = newNode(relX, relY);
 
         // Fluffup this node with metadata
         node.nodeKey = nodeKey;
         node.relX = relX;
         node.relY = relY;
 
-        // Add to the node list
-        this.setState({
-            nodes: [...this.state.nodes, node]
-        })
-
-        // Update global var
-        window.nodes = this.state.nodes;
+        if(this.props.nodes.find(x => x.id === node.id) == null){
+            this.props.onAddNode(node) 
+        }else{
+            if(isNewNode === true){
+                plumb.getContainer().removeChild(d);
+            }
+        }
+        window.nodes = this.props.nodes.slice(0)
 
         $(".w").on('click', function (e) {
             console.log('clicked ' + e.currentTarget.id)
@@ -248,12 +250,14 @@ class Acquire extends Component {
 }
 
 const mapStateToProps = state => ({
-    todos: state.datasources
+    nodes: state.nodes
 })
 
-const mapDispatchToProps = dispatch => ({
-    // placeDatasource: id => dispatch(placeDatasource(id))
-})
+const mapDispatchToProps = dispatch => {
+    return {
+      onAddNode: node => dispatch(addNode(node))
+    };
+  };
 
 export default connect(
     mapStateToProps,

@@ -55,8 +55,9 @@ class ConnectionsList extends Component {
 
 					console.log(node);
 					console.log(nodeKey);
-
-					addNode(node, nodeKey, relX, relY, plumb, nodeClicked);
+					
+					var isNewNode = true;
+					addNode(node, nodeKey, relX, relY, plumb, nodeClicked, isNewNode);
 				}
 			});
 		});

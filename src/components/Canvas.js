@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 // import $ from 'jquery';
 require('jqueryui');
 require('jsplumb');
@@ -8,6 +9,7 @@ const jsPlumb = window.jsPlumb;
 class Canvas extends Component {
 
   componentDidMount() {
+    let nodes = this.props.nodes;
     let plumb = this.props.plumb;
     let addNode = this.props.addNode;
     let nodeClicked = this.props.nodeClicked;
@@ -18,12 +20,12 @@ class Canvas extends Component {
 
       plumb.batch(function () {
         // Restore nodes
-        window.nodes.forEach(node => {
-          addNode(node, node.nodeKey, node.relX, node.relY, plumb, nodeClicked)
+        nodes.forEach(node => {
+          addNode(node, node.nodeKey, node.relX, node.relY, plumb, nodeClicked, false)
         });
 
         if (window.nodes.length > 1) {
-          plumb.connect({ source: window.nodes[0].id, target: window.nodes[1].id, type: "basic" });
+          plumb.connect({ source: nodes[0].id, target: window.nodes[1].id, type: "basic" });
         }
         
       });
@@ -43,4 +45,17 @@ class Canvas extends Component {
   }
 }
 
-export default Canvas
+const mapStateToProps = state => ({
+  nodes: state.nodes
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Canvas)
