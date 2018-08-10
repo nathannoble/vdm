@@ -34,7 +34,7 @@ class Acquire extends Component {
     }
 
     // Update the current selected node
-    nodeClicked(nodeId) {
+    nodeClicked = nodeId => {
         var clickedNode = this.state.nodes.find(n => n.id === nodeId);
         this.setState({ currentNode: clickedNode });
         console.log(clickedNode);

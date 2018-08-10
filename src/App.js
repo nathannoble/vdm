@@ -34,7 +34,7 @@ class App extends Component {
                 <NavItem><FontAwesomeIcon icon="gavel" /> Govern</NavItem>
               </LinkContainer>
 
-              <NavDropdown eventKey={3} title="Community" id="basic-nav-dropdown">
+              {/* <NavDropdown eventKey={3} title="Community" id="basic-nav-dropdown">
                 <MenuItem eventKey={3.1}>Post</MenuItem>
                 <MenuItem eventKey={3.2}>Vote</MenuItem>
                 <MenuItem eventKey={3.3}>Art</MenuItem>
@@ -44,7 +44,7 @@ class App extends Component {
                   <MenuItem eventKey={3.3}>Art</MenuItem>
                 </LinkContainer>
 
-              </NavDropdown>
+              </NavDropdown> */}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

@@ -7,9 +7,8 @@ class Home extends Component {
     render() {
         return (
             <div>
-                home
-                <AddTodo />
-                <VisibleTodoList />
+                Home placeholder
+                
             </div>
         );
     }
