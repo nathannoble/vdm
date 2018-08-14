@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
-class Govern extends Component {
+class Monitor extends Component {
     render() {
+        console.log(this.props.match)
         return (
             <div>
-                <h1>Govern</h1>
+                <h1>Monitor</h1>
             </div>
         );
     }
 }
 
-export default Govern
+export default Monitor

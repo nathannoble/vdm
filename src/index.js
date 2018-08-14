@@ -7,6 +7,9 @@ import Home from './containers/Home'
 import Acquire from './containers/Acquire'
 import Explore from './containers/Explore'
 import Govern from './containers/Govern'
+import Operationalize from './containers/Operationalize'
+import Monitor from './containers/Monitor'
+import About from './containers/About'
 import './index.css';
 
 import { Provider } from 'react-redux'
@@ -23,10 +26,13 @@ ReactDOM.render(
             <div>
                 <App />
                 <Route exact path="/" component={Home} />
-                <Route path="/home" component={Home} />
+                {/* <Route path="/home" component={Home} /> */}
                 <Route path="/acquire" render={(props) => (<Acquire {...props} state={window.nodes} />)} />
                 <Route path="/explore" component={Explore} />
                 <Route path="/govern" component={Govern} />
+                <Route path="/operationalize" component={Operationalize} />
+                <Route path="/monitor" component={Monitor} />
+                <Route path="/about" component={About} />
             </div>
         </BrowserRouter>
     </Provider>,

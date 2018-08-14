@@ -21,9 +21,6 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <LinkContainer to="/home">
-                <NavItem><FontAwesomeIcon icon="home" /> Home</NavItem>
-              </LinkContainer>
               <LinkContainer to="/acquire">
                 <NavItem><FontAwesomeIcon icon="upload" /> Acquire</NavItem>
               </LinkContainer>
@@ -33,7 +30,15 @@ class App extends Component {
               <LinkContainer to="/govern">
                 <NavItem><FontAwesomeIcon icon="gavel" /> Govern</NavItem>
               </LinkContainer>
-
+              <LinkContainer to="/operationalize">
+                <NavItem><FontAwesomeIcon icon="wrench" /> Operationalize</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/monitor">
+                <NavItem><FontAwesomeIcon icon="heartbeat" /> Monitor</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/about">
+                <NavItem><FontAwesomeIcon icon="book-open" /> About</NavItem>
+              </LinkContainer>
               {/* <NavDropdown eventKey={3} title="Community" id="basic-nav-dropdown">
                 <MenuItem eventKey={3.1}>Post</MenuItem>
                 <MenuItem eventKey={3.2}>Vote</MenuItem>

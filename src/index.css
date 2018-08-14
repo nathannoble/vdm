@@ -18,7 +18,7 @@ body {
 .navbar{
   border:none;
   box-shadow: none;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -91,12 +91,7 @@ body {
   overflow:auto;
 }
 
-#canvas {
-  padding: 20px;
-  height: calc(100vh - 160px);
-  /* background: tomato; */
-  border: 1px solid gray;
-}
+
 
 .main {
   display: flex;

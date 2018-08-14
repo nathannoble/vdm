@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import $ from 'jquery';
+import './Canvas.css'
 require('jqueryui');
 require('jsplumb');
+
 
 const jsPlumb = window.jsPlumb;
 
