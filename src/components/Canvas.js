@@ -9,6 +9,14 @@ const jsPlumb = window.jsPlumb;
 
 class Canvas extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      nodes: props.nodes
+    };
+
+  }
+
   componentDidMount() {
     let nodes = this.props.nodes;
     let plumb = this.props.plumb;
@@ -28,11 +36,11 @@ class Canvas extends Component {
         if (window.nodes.length > 1) {
           plumb.connect({ source: nodes[0].id, target: window.nodes[1].id, type: "basic" });
         }
-        
-      });
-      
 
-      
+      });
+
+
+
 
     });
 
@@ -47,12 +55,12 @@ class Canvas extends Component {
 }
 
 const mapStateToProps = state => ({
-  nodes: state.nodes
+
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    
+
   };
 };
 

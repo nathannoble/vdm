@@ -4,10 +4,10 @@ import Canvas from '../components/Canvas'
 import PropertyPage from '../components/PropertyPage'
 import "./Acquire.css";
 // eslint-disable-next-line
-import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron, Button, Panel, ListGroup, ListGroupItem, Grid, Row, Col, Clearfix, Tabs, Tab } from 'react-bootstrap';
+import { Button, Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
 import { connect } from 'react-redux'
-import { addNode } from "../actions/acquire";
+
 
 require('jqueryui');
 require('jsplumb');
@@ -25,17 +25,17 @@ class Acquire extends Component {
             dataSources: [],
             zTreeObj: null,
             currentNode: null,
-            plumb: null,
-            nodes:props.nodes
+            plumb: null
         };
 
         this.addNode = this.addNode.bind(this);
         this.nodeClicked = this.nodeClicked.bind(this);
+        window.onUpdateNodeClassName = this.props.onUpdateNodeClassName;
     }
 
     // Update the current selected node
     nodeClicked = nodeId => {
-        var clickedNode = this.state.nodes.find(n => n.id === nodeId);
+        var clickedNode = this.props.acquireNodes.find(n => n.id === nodeId);
         this.setState({ currentNode: clickedNode });
         console.log(clickedNode);
     }
@@ -43,7 +43,7 @@ class Acquire extends Component {
 
     // Add the node to the node list and to the canvas
     addNode(node, nodeKey, relX, relY, plumb, nodeClicked, isNewNode) {
-        
+
         var initNode = function (el) {
 
             // initialise draggable elements.
@@ -58,7 +58,7 @@ class Acquire extends Component {
                     console.log(ui.helper[0].id)
                     console.log(ui.position)
                     // Update the node position
-                    var node = window.nodes.find(node => node.id === ui.helper[0].id)
+                    var node = window.acquireNodes.find(node => node.id === ui.helper[0].id)
                     node.relX = ui.position.left - 300
                     node.relY = ui.position.top - 100
                 }
@@ -112,14 +112,15 @@ class Acquire extends Component {
         node.relX = relX;
         node.relY = relY;
 
-        if(this.props.nodes.find(x => x.id === node.id) == null){
-            this.props.onAddNode(node) 
-        }else{
-            if(isNewNode === true){
+        if (this.props.acquireNodes.find(x => x.id === node.id) == null) {
+            this.props.onAddNode(node)
+        } else {
+            if (isNewNode === true) {
                 plumb.getContainer().removeChild(d);
             }
         }
-        window.nodes = this.props.nodes.slice(0)
+
+        window.acquireNodes = this.props.acquireNodes
 
         $(".w").on('click', function (e) {
             console.log('clicked ' + e.currentTarget.id)
@@ -161,8 +162,15 @@ class Acquire extends Component {
         // just the new connection - see the documentation for a full list of what is included in 'info'.
         // this listener sets the connection's internal
         // id as the label overlay's text.
-        plumb.bind("connection", function (info) {
+        plumb.bind("connection", function (info, e) {
+            e.preventDefault();
             info.connection.getOverlay("label").setLabel(info.connection.id);
+            console.log("Source:" + info.connection.sourceId)
+            console.log("Target:" + info.connection.targetId)
+
+            // Prepare form for submission
+            window.onUpdateNodeClassName({ id: info.connection.sourceId, className: "source-form" })
+            window.onUpdateNodeClassName({ id: info.connection.targetId, className: "target-form" })
         });
 
 
@@ -172,12 +180,8 @@ class Acquire extends Component {
 
 
         fetch('http://localhost:4000/api/getconnections')
-            // fetch("http://localhost:4000/api/datasources")  
-            // fetch("http://52.45.154.215:9290/getConnections/name")
-            // fetch('http://52.45.154.215:9290/getNewConnections/name')
             .then(res => res.json())
             .then(
-
                 (result) => {
                     this.setState({
                         isLoaded: true,
@@ -228,7 +232,7 @@ class Acquire extends Component {
                                             <Button>Close</Button>
                                             <Button>Save</Button>
                                         </div>
-                                        <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} />
+                                        <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} nodes={this.props.acquireNodes} />
                                     </div>
                                     <div className="col-3">
                                         <PropertyPage node={currentNode} />
@@ -249,15 +253,19 @@ class Acquire extends Component {
 
 }
 
-const mapStateToProps = state => ({
-    nodes: state.nodes
-})
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        acquireNodes: state.acquireNodes
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
-      onAddNode: node => dispatch(addNode(node))
+        onAddNode: node => dispatch({ type: 'ADD_NODE', node: node }),
+        onUpdateNodeClassName: node => dispatch({ type: 'UPDATE_NODE_CLASSNAME', node: node })
     };
-  };
+};
 
 export default connect(
     mapStateToProps,
