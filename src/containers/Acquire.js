@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ConnectionsList from '../components/ConnectionsList'
+import DatasetList from '../components/DatasetList'
 import Canvas from '../components/Canvas'
 import PropertyPage from '../components/PropertyPage'
 import "./Acquire.css";
@@ -44,6 +45,9 @@ class Acquire extends Component {
     // Add the node to the node list and to the canvas
     addNode(node, nodeKey, relX, relY, plumb, nodeClicked, isNewNode) {
 
+        var vOffset = 0;
+        var hOffset = -300;
+
         var initNode = function (el) {
 
             // initialise draggable elements.
@@ -59,8 +63,8 @@ class Acquire extends Component {
                     console.log(ui.position)
                     // Update the node position
                     var node = window.acquireNodes.find(node => node.id === ui.helper[0].id)
-                    node.relX = ui.position.left - 300
-                    node.relY = ui.position.top - 100
+                    node.relX = ui.position.left + hOffset
+                    node.relY = ui.position.top + vOffset
                 }
             });
 
@@ -87,8 +91,6 @@ class Acquire extends Component {
         };
 
         var newNode = function (x, y) {
-            var vOffset = 100;
-            var hOffset = 300;
             var d = document.createElement("div");
             // var id = jsPlumbUtil.uuid();
             var nodeName = node.name;
@@ -217,13 +219,19 @@ class Acquire extends Component {
                     <div className='sub-menu'>
                         <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
-
-                                <div className="main">
-                                    <div className="col-1">
-                                        <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj}
+                            <div className='col-lg-2  col-md-3 left-pane'>
+                            <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj}
                                             currentNode={currentNode} addNode={addNode} plumb={plumb}
                                             nodeClicked={nodeClicked}
                                         />
+                            </div>
+                            <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} nodes={this.props.acquireNodes} />
+                            <div className='col-lg-2  col-md-3 right-pane'>
+                                <DatasetList datasets={window.DATASETS} title='Acquired Datasets'/>
+                            </div>
+                                {/* <div className="main">
+                                    <div className="col-1">
+                                        
                                     </div>
                                     <div className="col-2">
                                         <div className="actions-box">
@@ -232,12 +240,12 @@ class Acquire extends Component {
                                             <Button>Close</Button>
                                             <Button>Save</Button>
                                         </div>
-                                        <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} nodes={this.props.acquireNodes} />
+                                        
                                     </div>
                                     <div className="col-3">
                                         <PropertyPage node={currentNode} />
                                     </div>
-                                </div>
+                                </div> */}
 
                             </Tab>
                             <Tab eventKey={2} title="Confluent" disabled>

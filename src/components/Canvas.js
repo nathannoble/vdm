@@ -33,8 +33,8 @@ class Canvas extends Component {
           addNode(node, node.nodeKey, node.relX, node.relY, plumb, nodeClicked, false)
         });
 
-        if (window.nodes.length > 1) {
-          plumb.connect({ source: nodes[0].id, target: window.nodes[1].id, type: "basic" });
+        if (nodes.length > 1) {
+          plumb.connect({ source: nodes[0].id, target:  nodes[1].id, type: "basic" });
         }
 
       });
@@ -48,8 +48,9 @@ class Canvas extends Component {
 
   render() {
     return (
-      <div id='canvas'>
-      </div>
+      <div id='canvas' className='col-lg-8 col-md-6'>
+        Drag and drop connections here
+    </div>
     )
   }
 }
