@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import ConnectionsList from '../components/ConnectionsList'
 import DatasetList from '../components/DatasetList'
 import Canvas from '../components/Canvas'
@@ -7,7 +8,7 @@ import "./Acquire.css";
 // eslint-disable-next-line
 import { Button, Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
-import { connect } from 'react-redux'
+
 
 
 require('jqueryui');
@@ -24,6 +25,7 @@ class Acquire extends Component {
             error: null,
             isLoaded: false,
             dataSources: [],
+            acquiredDatasets: [],
             zTreeObj: null,
             currentNode: null,
             plumb: null
@@ -175,38 +177,23 @@ class Acquire extends Component {
             window.onUpdateNodeClassName({ id: info.connection.targetId, className: "target-form" })
         });
 
-
-
         this.setState({ plumb: plumb });
 
-
-
-        fetch('http://localhost:4000/api/getconnections')
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        dataSources: JSON.parse(result)
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        getAllData()
+            .then(([dataSources, acquiredDatasets]) => {
+                this.setState({
+                    isLoaded: true,
+                    dataSources: dataSources,
+                    acquiredDatasets: acquiredDatasets
+                });
+            })
 
     }
 
 
 
     render() {
-        const { error, isLoaded, dataSources, zTreeObj, currentNode, plumb } = this.state;
+        const { error, isLoaded, dataSources, zTreeObj, currentNode, plumb, acquiredDatasets } = this.state;
         const addNode = this.addNode;
         const nodeClicked = this.nodeClicked;
         if (error) {
@@ -219,16 +206,19 @@ class Acquire extends Component {
                     <div className='sub-menu'>
                         <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
                             <Tab className='tab-content' eventKey={1} title="RCG Enable">
-                            <div className='col-lg-2  col-md-3 left-pane'>
-                            <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj}
-                                            currentNode={currentNode} addNode={addNode} plumb={plumb}
-                                            nodeClicked={nodeClicked}
-                                        />
-                            </div>
-                            <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} nodes={this.props.acquireNodes} />
-                            <div className='col-lg-2  col-md-3 right-pane'>
-                                <DatasetList datasets={window.DATASETS} title='Acquired Datasets'/>
-                            </div>
+                                <div className='col-lg-2  col-md-3 left-pane'>
+                                    <ConnectionsList dataSources={dataSources} zTreeObj={zTreeObj}
+                                        currentNode={currentNode} addNode={addNode} plumb={plumb}
+                                        nodeClicked={nodeClicked}
+                                    />
+                                </div>
+                                <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} nodes={this.props.acquireNodes} currentNode={currentNode} />
+                                <div className='col-lg-2  col-md-3'>
+                                    <PropertyPage node={currentNode} />
+                                </div>
+                                <div className='col-lg-2  col-md-3 right-pane'>
+                                    <DatasetList datasets={acquiredDatasets} title='Acquired Datasets' />
+                                </div>
                                 {/* <div className="main">
                                     <div className="col-1">
                                         
@@ -273,6 +263,26 @@ const mapDispatchToProps = dispatch => {
         onAddNode: node => dispatch({ type: 'ADD_NODE', node: node }),
         onUpdateNodeClassName: node => dispatch({ type: 'UPDATE_NODE_CLASSNAME', node: node })
     };
+};
+
+const getDatasources = () => {
+    return fetch('http://localhost:4000/api/datasources')
+        .then(res => res.json())
+        .then((result) => JSON.parse(result))
+};
+
+const getAcquiredDatasets = () => {
+    return fetch('http://localhost:4000/api/acquiredDatasets', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }).then(res => res.json())
+    .then((result) => JSON.parse(result))
+};
+
+const getAllData = () => {
+    return Promise.all([getDatasources(), getAcquiredDatasets()])
 };
 
 export default connect(

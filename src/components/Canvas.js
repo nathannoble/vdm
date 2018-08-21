@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropertyPage from '../components/PropertyPage'
 import './Canvas.css'
 require('jqueryui');
 require('jsplumb');
@@ -12,7 +13,8 @@ class Canvas extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nodes: props.nodes
+      nodes: props.nodes,
+      currentNode: props.currentNode
     };
 
   }
@@ -22,6 +24,7 @@ class Canvas extends Component {
     let plumb = this.props.plumb;
     let addNode = this.props.addNode;
     let nodeClicked = this.props.nodeClicked;
+    let currentNode = this.props.currentNode
 
     plumb.setContainer('canvas');
     jsPlumb.ready(function () {
@@ -38,19 +41,13 @@ class Canvas extends Component {
         }
 
       });
-
-
-
-
     });
 
   }
 
   render() {
     return (
-      <div id='canvas' className='col-lg-8 col-md-6'>
-        Drag and drop connections here
-    </div>
+      <div id='canvas' className='col-lg-6 col-md-3'/>    
     )
   }
 }
