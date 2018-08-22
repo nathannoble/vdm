@@ -212,7 +212,16 @@ class Acquire extends Component {
                                         nodeClicked={nodeClicked}
                                     />
                                 </div>
-                                <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} nodes={this.props.acquireNodes} currentNode={currentNode} />
+                                
+                                <div className="col-2">
+                                        <div className="actions-box">
+                                            <Button>New</Button>
+                                            <Button>Open</Button>
+                                            <Button>Close</Button>
+                                            <Button>Save</Button>
+                                        </div>
+                                        <Canvas addNode={addNode} plumb={plumb} nodeClicked={nodeClicked} nodes={this.props.acquireNodes} currentNode={currentNode} />
+                                    </div>
                                 <div className='col-lg-2  col-md-3'>
                                     <PropertyPage node={currentNode} />
                                 </div>
